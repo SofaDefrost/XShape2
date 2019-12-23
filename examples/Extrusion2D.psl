@@ -1,0 +1,19 @@
+Node :
+{
+    name : "root"
+    Import : "dfgeom.psl"
+
+    Twist : {
+            Extrude : {                    
+                    Profil2D : 
+                    {
+                           Image
+                           FichierInkscape
+                           FonctionImplicite2D
+                    }
+        }
+    }
+    
+
+}
+

@@ -1,0 +1,61 @@
+import Sofa
+import math
+
+class ComputeYoung(Sofa.Core.DataEngine):
+        def __init__(self, n, fieldFunction):
+                self.name = "ComputeYoung"
+                self.addNewInput('positions',datatype='p')        
+                self.addNewInput('tetrahedra',datatype='t')        
+                self.addNewOutput('youngs', datatype='[f]')        
+                self.fieldFunction = fieldFunction
+        
+        def update(self):
+                tetras = self.tetrahedra
+                points = self.positions 
+                youngs = []
+                print(tetras)
+                for p in tetras:
+                        v = [0,0,0]
+                        for j in p:
+                                v[0] += points[j][0]
+                                v[1] += points[j][1]
+                                v[2] += points[j][2]
+                        v[0]*=0.25
+                        v[1]*=0.25
+                        v[2]*=0.25
+                        
+                        youngs.append(self.fieldFunction(v))
+                self.youngs=youngs
+
+def f(p):
+        return math.fabs(p[0])
+                       
+def createScene(root):
+        s = root.createChild("Shape")
+        c = ComputeYoung(s,f)
+        
+        root.createObject("RequiredPlugin", name="SofaImplicitField")
+        root.createObject("CustomField", name = "field", 
+                function = "tripodvrille_shape.evalField",
+                glslFunction = "tripodvrille_shape.glslFunction")
+        
+        m=root.createObject("MeshGenerationFromImplicitShape", 
+                        name = "surfaceMesh2", 
+                        listening = "1",  
+                        edge_size = "0.5",
+                        facet_size = "0.5",
+			approximation = "1.0",
+                        cell_size = "0.6",
+                        scalarfield = "@field", 
+                        facet_distance = "3",
+                        cell_radius_edge_ratio = "2.1",
+                        facet_angle = "30",
+                        drawTetras = True,
+                        meshingzone_center = "2.0 0.0 0.0", 
+                        meshingzone_radius = "10.0")          
+ 
+        c.getData("positions").setParent(m.getData("outputPoints"))
+        c.getData("tetrahedra").setParent(m.getData("outputTetras"))
+        
+        s.addObject(c)
+        

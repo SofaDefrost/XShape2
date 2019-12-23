@@ -1,0 +1,8 @@
+<Node>
+    <RequiredPlugin name="SofaImplicitField"/>    
+    <RequiredPlugin name="SofaImplicitField3"/>    
+
+    <DiscreteGridField name="myField2" file="dragon.mhd"/>    
+    <PointCloudImplicitFieldVisualization box="bbox" field="@myField2"/>
+</Node>
+

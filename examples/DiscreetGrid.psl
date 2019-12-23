@@ -1,0 +1,19 @@
+Node :
+{
+    name : "root"
+    Import : "dfgeom.psl"
+
+   
+    
+    DiscreteGridField : {
+                name : "myField2"
+                file : "dragon.mhd"
+    }
+    
+    
+    PointCloudImplicitFieldVisualization : {
+                box : "bbox"
+                field : "@myField2"
+    }
+}
+

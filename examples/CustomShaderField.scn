@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Node>
+
+    <Node name="settings">
+    <RequiredPlugin name="SofaImplicitField"  printLog="1" />
+    <RequiredPlugin name="SofaImplicitField3"  printLog="1" />
+    <VisualStyle name="visualStyle"  displayFlags="showVisual" />
+    </Node>
+
+     <Node name="demos">
+        <OglSceneFrame/>
+    	<CustomField name="field"  
+                     function="customshaderfield.evalField" 
+                     glslFunction="customshaderfield.glslFunction"/>
+
+        <Node>
+                <VisualTransform transform="3.0 0.0 0.0 0.0 0.0 0.0 1.0"/>          
+                <PointCloudImplicitFieldVisualization field="@field" box="-1 -1 -1 1 1 1"/> 
+        </Node>
+
+        <Node>
+                <VisualTransform transform="6.0 0.0 0.0 0.0 0.0 0.0 1.0"/>          
+                <SurfaceMeshGenerationFromScalarField field="@field" box="-1 -1 -1 2 2 2" step="0.05"/>
+        </Node>
+
+        
+        <Node name="shaderRender">
+            <VisualTransform transform="-3.0 0.0 0.0 0.0 0.0 0.0 1.0"/>        
+            <ImplicitFieldShaderVisualization name="implicitFieldShaderVisualization1"  
+                                                           listening="1"  field="@field"/>  
+        </Node>
+     </Node>
+</Node>

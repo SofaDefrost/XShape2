@@ -1,0 +1,25 @@
+Node : 
+{
+        name : "root"
+        RequiredPlugin : "SofaImplicitField"
+        CustomField : {
+                name : "field"
+                function : "tripodvrille_shape.evalField"
+                glslFunction : "tripodvrille_shape.glslFunction"
+        }
+        
+        ImplicitFieldShaderVisualization : {
+               name : "view"
+                listenig :  True,
+                field : "@field"
+        }
+        
+        
+        
+        //PointCloudImplicitFieldVisualization : {
+        //        field : "@field"
+        //        box : "-10 -10 -10 10 10 10"
+        //}
+        
+        
+}

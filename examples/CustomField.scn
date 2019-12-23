@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Node>
+	<RequiredPlugin name="SofaImplicitField" /> 
+	<RequiredPlugin name="SofaImplicitField3" /> 
+        <CustomField name="field"
+                     function="customfield.evalField"
+                     glslFunction="customfield.evalField" printLog="True"/>
+        <PointCloudImplicitFieldVisualization field="@field" box="-1 -1 -1 1 1 1"/>
+</Node>

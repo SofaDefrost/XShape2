@@ -1,0 +1,86 @@
+Node :
+ {
+    VisualStyle : { 
+        displayFlags:"showVisual"
+    }
+    OglSceneFrame : ""
+    RequiredPlugin : "SofaImplicitField"
+    RequiredPlugin : "CGALPlugin"
+
+    Node : {
+        name : "Shape"
+    	CustomField : { 
+    	                name : "field",
+                        function : "field1.evalField",
+                        glslFunction : "field1.glslFunction"
+                      }
+        }
+        
+        Node : {
+                name : "Previewer"
+                VisualTransform : { 
+                        transform : "0.0 0.0 -3.0 0.0 0.0 0.0 1.0"
+                }
+                
+                        
+                PointCloudImplicitFieldVisualization : {
+                        field: "@/Shape/field" 
+                        box : "-2 -1 -1 2 2 2"
+                }
+        }
+        
+        Node :  {
+                name : "Viewer"
+                VisualTransform : { transform : "-4.0 0.0 0.0 0.0 0.0 0.0 1.0" }
+                
+                
+                ImplicitFieldShaderVisualization : {
+                        name : "implicitFieldShaderVisualization1"  
+                       listening : "1"
+                        field : "@/Shape/field"
+                }  
+        }
+        
+
+        Node : { 
+                name : "Volume"
+                VisualTransform : { 
+                        transform : "0.0 0.0 3.0 0.0 0.0 0.0 1.0" 
+                } 
+                
+                MeshGenerationFromImplicitShape : {
+                        name : "surfaceMesh2" 
+                        listening : "1"  
+                        edge_size : "0.1"
+                        facet_size : "0.1"
+			approximation : "0.1"
+                        cell_size : "0.1"
+                        scalarfield : "@/Shape/field" 
+                        facet_distance : "3"
+                        cell_radius_edge_ratio : "2.1"
+                        facet_angle : "30"
+                        drawTetras : true
+                        meshingzone_center : "-0.45 0.0 0.0" 
+                        meshingzone_radius : "10.0"
+                }             
+        }
+
+        Node : { 
+                name : "Surface"
+                VisualTransform : { 
+                        transform : "0.0 0.0 6.0 0.0 0.0 0.0 1.0" 
+                } 
+                
+                SurfaceMeshGenerationFromScalarField : {
+                        name : "surfaceMesh2" 
+                        listening : "1"  
+                        field : "@/Shape/field" 
+                        min :"-1.1 -1.1 -1.1" 
+                        max :"1.1 1.1 1.1"
+                        step :"0.05"
+                }
+        }
+
+
+        
+}
